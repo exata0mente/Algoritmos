@@ -22,7 +22,7 @@ int pilha_cheia(int);
 //Funções Verbos
 int inicializar_pilha(int*,int);
 void consultar_pilha(int*,int);
-int empilhar_elemento(int*, int*, int, int);
+int empilhar_elemento(int*, int,int);
 int desempilhar_elemento(int*, int);
 void listar_pilha(int*, int*, int, int);
 
@@ -104,9 +104,9 @@ int main(void){
                 printf("Digite o elemento: ");
                 scanf("%d",&elemento);
                 if(elemento % 2)
-                    topoImpar++;
+                    topoImpar = empilhar_elemento(pilhaImpar,topoImpar,elemento);
                 else
-                    topoPar++;
+                    topoPar = empilhar_elemento(pilhaPar,topoPar,elemento);
                 break;
             case 6: //Desempilha elemento.
                 *pTopo = desempilhar_elemento(pAux,*pTopo);
@@ -147,27 +147,16 @@ void consultar_pilha(int *p, int topo){
   else
     printf("O elemento do topo da pilha e: %d\n", *(p + topo));
 }
-int empilhar_elemento(int *p1, int *p2, int topo1, int topo2){
-    printf("Entrei na funcao empilhar_elemento!!!\n\n");
-    int elemento = 0;
-        
-        printf("Digite o elemento: ");
-        scanf("%d",&elemento);
-        
-        if(elemento % 2){
-            if(pilha_cheia(topo1))
-                printf("A pilha IMPAR esta cheia!\n");
-             else
-                *(p1 + (++topo1)) = elemento;
-        }
-        else{
-            if(pilha_cheia(topo2))
-                printf("A pilha PAR esta cheia!\n");
-            else
-                *(p2 + (++topo2)) = elemento;
-        }
-        
-    return elemento;
+int empilhar_elemento(int *p, int topo,int elemento){
+  
+    if(pilha_cheia(topo))
+        printf("Atencao! Pilha cheia! Utilize a funcao Listar\n");
+    else{
+        *(p + (++topo)) = elemento;
+        printf("Elemento %d empilhado!\n", *(p + topo));
+    }
+
+    return topo;
 }
 int desempilhar_elemento(int *p, int topo){
 

@@ -3,12 +3,14 @@
 
 #include<stdio.h>
 
-int empilhar_elemento(int *p, int topo){
-    
-    if(pilha_cheia(topo1))
-        printf("Atencao! Pilha Cheia! Use a funcao Listar\n");
-    *(p + (++topo)) = elemento;
-    
-    return elemento;
-    
+int empilhar_elemento(int *p, int topo,int elemento){
+  
+    if(pilha_cheia(topo))
+        printf("Atencao! Pilha cheia! Utilize a funcao Listar\n");
+    else{
+        *(p + (++topo)) = elemento;
+        printf("Elemento %d empilhado!\n", *(p + topo));
+    }
+
+    return topo;
 }
