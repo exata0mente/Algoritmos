@@ -24,94 +24,102 @@ int inicializar_pilha(int*,int);
 void consultar_pilha(int*,int);
 int empilhar_elemento(int*, int*, int, int);
 int desempilhar_elemento(int*, int);
-void listar_pilha(int*, int);
+void listar_pilha(int*, int*, int, int);
 
 int main(void){
   
-  int topoImpar = -1, topoPar = -1,opc = -1, opcPilha = 0, validaElemento = 0;
-  int pilhaImpar[T], pilhaPar[T];
-  int *pI = pilhaImpar, *pP = pilhaPar, *pAux = NULL, *pTopo = NULL;
-  
-  printf("==============================================================\n");
-  printf("PILHAS PAR OU IMPAR\n");
-  printf("==============================================================\n");
-  
-  while(opc != 0){
-    printf("\n\nEscolha o que deseja fazer\n\n");
-    printf("1) Inicializar uma pilha\n");
-    printf("2) Verificar se a pilha esta vazia\n");
-    printf("3) Verificar se a pilha esta cheia\n");
-    printf("4) Consultar o primeiro elemento da pilha\n");
-    printf("5) Empilhar novo elemento\n");
-    printf("6) Desempilhar elemento\n");
-    printf("7) Listar pilhas\n");
-    printf("0) Sair\n");
+    int topoImpar = -1, topoPar = -1,opc = -1, opcPilha = 0, elemento = -1;
+    int pilhaImpar[T], pilhaPar[T];
+    int *pI = pilhaImpar, *pP = pilhaPar, *pAux = NULL, *pTopo = NULL;
     
-    scanf("%d", &opc);printf("\n\n\n");
+    while(opc != 0){
+
+//         system("clear");  
+        printf("==============================================================\n");
+        printf("PILHAS PAR OU IMPAR\n");
+        printf("==============================================================\n");
     
-    while(opcPilha != 1 && opcPilha != 2){
-        if(opc != 7 && opc != 0){
-            printf("Qual pilha deseja utilizar? 1 - Impar, 2 - Par: ");
-            scanf("%d", &opcPilha);
+        printf("\nEscolha o que deseja fazer\n\n");
+        printf("1) Inicializar uma pilha\n");
+        printf("2) Verificar se a pilha esta vazia\n");
+        printf("3) Verificar se a pilha esta cheia\n");
+        printf("4) Consultar o primeiro elemento da pilha\n");
+        printf("5) Empilhar novo elemento\n");
+        printf("6) Desempilhar elemento\n");
+        printf("7) Listar pilhas\n");
+        printf("0) Sair\n");
+        
+        printf("\nOpcao: ");
+        scanf("%d", &opc);
+        printf("\n\n");
+        
+        opcPilha = 0;
+
+        while(opcPilha != 1 && opcPilha != 2){
+            if(opc != 5 && opc != 7 && opc != 0){
+                printf("Em qual pilha deseja utilizar? [1] Impar [2] Par\n");
+                printf("Pilha: ");
+                scanf("%d", &opcPilha);
+            }
+            else
+                break;
         }
-    }
-    
-    if(opcPilha == 1){
-        pAux = pilhaImpar;
-        pTopo = &topoImpar;
-    }
-    else{
-        pAux = pilhaPar;
-        pTopo = &topoPar;
-    }
-    
-    system("clear");
-    printf("Mostrando a pilha %s", (opcPilha == 1) ? "IMPAR\n\n" : "PAR\n\n");
-    
-    switch(opc){
-      case 0: //Sair.
-	printf("Encerrando ... \n");
-	break;
-      case 1: //Inicializar uma pilha.
-	  *pTopo = inicializar_pilha(pAux,*pTopo);
-	  printf("Pilha inicializada! Podemos comecar...\n");
-	break;
-      case 2: //Verificar se a pilha esta vazia.
-	if(pilha_vazia(*pTopo))
-	  printf("A pilha esta vazia!\n");
-	else
-	  printf("A pilha nao esta vazia!\n");
-	break;
-      case 3: //Verificar se a pilha esta cheia.
-	if(pilha_cheia(*pTopo))
-	  printf("A pilha esta cheia!\n");
-	else
-	  printf("A pilha nao esta cheia!\n");
-	break;
-      case 4: //Consultar o primeiro elemento da pilha.
-	consultar_pilha(pAux,*pTopo);
-	break;
-      case 5: //Empilha novo elemento.
-	validaElemento = empilhar_elemento(pI,pP,topoImpar,topoPar);
-        if(validaElemento % 2)
-            topoImpar++;
-        else
-            topoPar++;
-        printf("Elemento empilhado!\n");
-	break;
-      case 6: //Desempilha elemento.
-	*pTopo = desempilhar_elemento(pAux,*pTopo);
-	break;
-      case 7: //Listar pilha.
-	listar_pilha(pAux,*pTopo);
-	break;
-      default:
-	printf("Opcao invalida! Tente novamente\n");
-	break;
-      opc = 0;
-      opcPilha = 0;
-    }
-    
+        
+        if(opcPilha == 1){
+            pAux = pilhaImpar;
+            pTopo = &topoImpar;
+        }
+        else{
+            pAux = pilhaPar;
+            pTopo = &topoPar;
+        }
+        
+        system("clear");
+        printf("**** Mostrando a pilha %s", (opcPilha == 1) ? "IMPAR****\n\n" : "PAR****\n\n");
+        
+        switch(opc){
+            case 0: //Sair.
+                printf("Encerrando ... \n");
+                break;
+            case 1: //Inicializar uma pilha.
+                *pTopo = inicializar_pilha(pAux,*pTopo);
+                printf("Pilha inicializada! Podemos comecar...\n");
+                break;
+            case 2: //Verificar se a pilha esta vazia.
+                if(pilha_vazia(*pTopo))
+                printf("A pilha esta vazia!\n");
+                else
+                printf("A pilha nao esta vazia!\n");
+                break;
+            case 3: //Verificar se a pilha esta cheia.
+                if(pilha_cheia(*pTopo))
+                printf("A pilha esta cheia!\n");
+                else
+                printf("A pilha nao esta cheia!\n");
+                break;
+            case 4: //Consultar o primeiro elemento da pilha.
+                consultar_pilha(pAux,*pTopo);
+                break;
+            case 5: //Empilha novo elemento.
+                printf("Digite o elemento: ");
+                scanf("%d",&elemento);
+                if(elemento % 2)
+                    topoImpar++;
+                else
+                    topoPar++;
+                break;
+            case 6: //Desempilha elemento.
+                *pTopo = desempilhar_elemento(pAux,*pTopo);
+                break;
+            case 7: //Listar pilha.
+                listar_pilha(pI,pP,topoImpar,topoPar);
+                break;
+            default:
+                printf("Opcao invalida! Vamos tentar de novo?\n");
+                break;
+            opc = 0;
+        }
+        
   }
     
   return 0;
@@ -135,13 +143,12 @@ int pilha_cheia(int topo){
 void consultar_pilha(int *p, int topo){
   
   if(pilha_vazia(topo))
-    printf("A pilha esta vazia");
+    printf("A pilha esta vazia\n");
   else
     printf("O elemento do topo da pilha e: %d\n", *(p + topo));
 }
-
 int empilhar_elemento(int *p1, int *p2, int topo1, int topo2){
-    
+    printf("Entrei na funcao empilhar_elemento!!!\n\n");
     int elemento = 0;
         
         printf("Digite o elemento: ");
@@ -150,16 +157,17 @@ int empilhar_elemento(int *p1, int *p2, int topo1, int topo2){
         if(elemento % 2){
             if(pilha_cheia(topo1))
                 printf("A pilha IMPAR esta cheia!\n");
-            *(p1 + (++topo1)) = elemento;
+             else
+                *(p1 + (++topo1)) = elemento;
         }
         else{
             if(pilha_cheia(topo2))
                 printf("A pilha PAR esta cheia!\n");
-            *(p2 + (++topo2)) = elemento;
+            else
+                *(p2 + (++topo2)) = elemento;
         }
         
     return elemento;
-    
 }
 int desempilhar_elemento(int *p, int topo){
 
@@ -173,12 +181,22 @@ int desempilhar_elemento(int *p, int topo){
       return --topo;
     }
 }
-void listar_pilha(int *p, int topo){
-  int i;
+void listar_pilha(int *p1, int *p2, int topo1, int topo2){
   
-  if(pilha_vazia(topo))
-    printf("A pilha esta vazia!\n");
-  else
-    for(i = T-1; i >= 0;i--)
-      printf("Elemento [%d] = %d%s", i, *(p + i), (i == topo) ? " <-- TOPO\n" : "\n");
+    int i;
+
+    for(i = T-1; i >= 0;i--){
+        
+        if(topo1 == -1){
+            printf("Pilha não inicalizada :(\t");
+        }
+        else
+            printf("Pilha Impar [%d] = %d%s \t\t\t", i, *(p1 + i), (i == topo1) ? " <-- TOPO" : "");
+        
+        if(topo2 == -1){
+            printf("Pilha não inicalizada :(\n");
+        }
+        else
+            printf("Pilha Par [%d] = %d%s ", i, *(p2 + i), (i == topo2) ? " <-- TOPO\n" : "\n");
+    }
 }
