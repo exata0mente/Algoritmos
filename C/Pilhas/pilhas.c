@@ -28,17 +28,19 @@ void listar_pilha(int*, int*, int, int);
 
 int main(void){
   
-    int topoImpar = -1, topoPar = -1,opc = -1, opcPilha = 0, elemento = -1;
+    int topoImpar = -1, topoPar = -1,opc = -1, opcPilha = 0, elemento = -1, statusInicializaImpar = 0, statusInicializaPar = 0;
     int pilhaImpar[T], pilhaPar[T];
     int *pI = pilhaImpar, *pP = pilhaPar, *pAux = NULL, *pTopo = NULL;
+    
+    printf("==============================================================\n");
+    printf("PILHAS PAR OU IMPAR\n");
+    printf("==============================================================\n");
+
     
     while(opc != 0){
 
 //         system("clear");  
-        printf("==============================================================\n");
-        printf("PILHAS PAR OU IMPAR\n");
-        printf("==============================================================\n");
-    
+        
         printf("\nEscolha o que deseja fazer\n\n");
         printf("1) Inicializar uma pilha\n");
         printf("2) Verificar se a pilha esta vazia\n");
@@ -50,7 +52,7 @@ int main(void){
         printf("0) Sair\n");
         
         printf("\nOpcao: ");
-        scanf("%d", &opc);
+        scanf("%d%*c", &opc);
         printf("\n\n");
         
         opcPilha = 0;
@@ -59,7 +61,7 @@ int main(void){
             if(opc != 5 && opc != 7 && opc != 0){
                 printf("Em qual pilha deseja utilizar? [1] Impar [2] Par\n");
                 printf("Pilha: ");
-                scanf("%d", &opcPilha);
+                scanf("%d%*c", &opcPilha);
             }
             else
                 break;
@@ -75,7 +77,6 @@ int main(void){
         }
         
         system("clear");
-        printf("**** Mostrando a pilha %s", (opcPilha == 1) ? "IMPAR****\n\n" : "PAR****\n\n");
         
         switch(opc){
             case 0: //Sair.
@@ -83,6 +84,10 @@ int main(void){
                 break;
             case 1: //Inicializar uma pilha.
                 *pTopo = inicializar_pilha(pAux,*pTopo);
+                if(opcPilha == 1)
+                    statusInicializaImpar = 1;
+                else
+                    statusInicializaPar = 1;
                 printf("Pilha inicializada! Podemos comecar...\n");
                 break;
             case 2: //Verificar se a pilha esta vazia.
@@ -102,17 +107,33 @@ int main(void){
                 break;
             case 5: //Empilha novo elemento.
                 printf("Digite o elemento: ");
-                scanf("%d",&elemento);
-                if(elemento % 2)
-                    topoImpar = empilhar_elemento(pilhaImpar,topoImpar,elemento);
-                else
-                    topoPar = empilhar_elemento(pilhaPar,topoPar,elemento);
+                scanf("%d%*c",&elemento);
+                if(elemento % 2){
+                    if(statusInicializaImpar > 0)
+                        topoImpar = empilhar_elemento(pilhaImpar,topoImpar,elemento);
+                    else
+                        printf("Ops! A pilha impar não foi inicializada :(\n");
+                }
+                else{
+                    if(statusInicializaPar > 0)
+                        topoPar = empilhar_elemento(pilhaPar,topoPar,elemento);
+                    else
+                        printf("Ops! A pilha par não foi inicializada :(\n");
+                }
                 break;
             case 6: //Desempilha elemento.
                 *pTopo = desempilhar_elemento(pAux,*pTopo);
                 break;
             case 7: //Listar pilha.
-                listar_pilha(pI,pP,topoImpar,topoPar);
+                system("clear");
+                printf("****** PILHAS ******\n\n");
+                if(statusInicializaImpar && statusInicializaPar)
+                    listar_pilha(pI,pP,topoImpar,topoPar);
+                else{
+                    printf("Ops! Alguma pilha não foi inicializada...\n");
+//                     printf("Pilha Impar = %d\tPilha Par = %d\n", statusInicializaImpar,statusInicializaPar);
+                }
+                printf("Aperte para continuar ");getchar();
                 break;
             default:
                 printf("Opcao invalida! Vamos tentar de novo?\n");
@@ -176,16 +197,17 @@ void listar_pilha(int *p1, int *p2, int topo1, int topo2){
 
     for(i = T-1; i >= 0;i--){
         
-        if(topo1 == -1){
-            printf("Pilha não inicalizada :(\t");
+        /*if(topo1 == -1){
+            printf("Considere inicializar... :(\t");
         }
         else
-            printf("Pilha Impar [%d] = %d%s \t\t\t", i, *(p1 + i), (i == topo1) ? " <-- TOPO" : "");
+        */    printf("Pilha Impar [%d] = %d%s \t\t\t", i, *(p1 + i), (i == topo1) ? " *" : "");
         
-        if(topo2 == -1){
-            printf("Pilha não inicalizada :(\n");
+        /*if(topo2 == -1){
+            printf("Considere inicializar... :(\n");
         }
         else
-            printf("Pilha Par [%d] = %d%s ", i, *(p2 + i), (i == topo2) ? " <-- TOPO\n" : "\n");
+        */    printf("Pilha Par [%d] = %d%s ", i, *(p2 + i), (i == topo2) ? " *\n" : "\n");
     }
+    printf("\nSendo * o topo da pilha\n");
 }
