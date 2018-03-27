@@ -1,3 +1,8 @@
+/* Autor: Ricardo Bezerra
+ * Ano: 2018
+ * Descrição: Aplicar as funções implementadas de pilha em duas pilhas, par ou impar.
+ */
+
 #include<stdio.h>
 #include<stdlib.h>
 #include "pilhas.h"
@@ -16,8 +21,6 @@ int main(void){
     
     while(opcMenu != 0){
 
-//         system("clear");  
-        
         printf("\nEscolha o que deseja fazer\n\n");
         printf("1) Inicializar uma pilha\n");
         printf("2) Verificar se a pilha esta vazia\n");
@@ -36,6 +39,9 @@ int main(void){
 
         while(opcPilha != 1 && opcPilha != 2){
             if(opcMenu != 5 && opcMenu != 7 && opcMenu != 0){
+                /* Algumas das opções do menu não necessitam a discriminação da pilha. 
+                 * Este trecho verifica se a opção solicitada se encaixa nesta condição. 
+                 */
                 printf("Em qual pilha deseja utilizar? [1] Impar [2] Par\n");
                 printf("Pilha: ");
                 scanf("%d%*c", &opcPilha);
@@ -69,20 +75,23 @@ int main(void){
                 break;
             case 2: //Verificar se a pilha esta vazia.
                 if(pilha_vazia(*pTopo))
-                printf("A pilha esta vazia!\n");
+                    printf("A pilha esta vazia!\n");
                 else
-                printf("A pilha nao esta vazia!\n");
+                    printf("A pilha nao esta vazia!\n");
                 break;
             case 3: //Verificar se a pilha esta cheia.
                 if(pilha_cheia(*pTopo,T))
-                printf("A pilha esta cheia!\n");
+                    printf("A pilha esta cheia!\n");
                 else
-                printf("A pilha nao esta cheia!\n");
+                    printf("A pilha nao esta cheia!\n");
                 break;
             case 4: //Consultar o primeiro elemento da pilha.
                 consultar_pilha(pAux,*pTopo);
                 break;
             case 5: //Empilha novo elemento.
+                /* Neste trecho precisamos validar se o elemento digitado (sendo par ou impar) vai
+                 * ser alocado em uma pilha já inicializada.
+                 */
                 printf("Digite o elemento: ");
                 scanf("%d%*c",&elementoPilha);
                 if(elementoPilha % 2){
@@ -106,15 +115,14 @@ int main(void){
                 printf("****** PILHAS ******\n\n");
                 if(statusInicializaImpar && statusInicializaPar)
                     listar_pilha(pI,pP,topoImpar,topoPar,T);
-                else{
+                else
                     printf("Ops! Alguma pilha não foi inicializada...\n");
-//                     printf("Pilha Impar = %d\tPilha Par = %d\n", statusInicializaImpar,statusInicializaPar);
-                }
                 printf("Aperte para continuar ");getchar();
                 break;
             default:
                 printf("Opcao invalida! Vamos tentar de novo?\n");
                 break;
+            
             opcMenu = 0;
         }
         

@@ -1,3 +1,9 @@
+/* Autor: Ricardo Bezerra
+ * Ano: 2018
+ * Descrição: Neste cabeçalho estão as funções mais elementares para o tratamento de pilhas, como empilhar (to push), desempilhar (to pop) 
+ *  e consultar (to peek), além das funções estados como a pilha_vazia (empty) e pilha_cheia (full).
+ */
+
 #ifndef _PILHAS_H
 #define _PILHAS_H
 
@@ -12,8 +18,9 @@ int empilhar_elemento(int*, int,int,int);
 int desempilhar_elemento(int*, int);
 void listar_pilha(int*, int*, int, int, int);
 
+
 int inicializar_pilha(int *p, int topo, int T){
-  
+    
   int i = 0;
   
   for(i = 0; i < T; i++)
@@ -21,6 +28,7 @@ int inicializar_pilha(int *p, int topo, int T){
  
   return -1;
 }
+
 int pilha_vazia(int topo){
   return(topo == -1);
 }
@@ -68,7 +76,6 @@ void listar_pilha(int *p1, int *p2, int topo1, int topo2, int T){
     }
     printf("\nSendo * o topo da pilha\n");
 }
-
 
 #endif
 
