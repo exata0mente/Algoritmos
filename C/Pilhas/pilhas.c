@@ -23,12 +23,10 @@ int main(void){
 
         printf("\nEscolha o que deseja fazer\n\n");
         printf("1) Inicializar uma pilha\n");
-        printf("2) Verificar se a pilha esta vazia\n");
-        printf("3) Verificar se a pilha esta cheia\n");
-        printf("4) Consultar o primeiro elemento da pilha\n");
-        printf("5) Empilhar novo elemento\n");
-        printf("6) Desempilhar elemento\n");
-        printf("7) Listar pilhas\n");
+        printf("2) Consultar o primeiro elemento da pilha\n");
+        printf("3) Empilhar novo elemento\n");
+        printf("4) Desempilhar elemento\n");
+        printf("5) Listar pilhas\n");
         printf("0) Sair\n");
         
         printf("\nOpcao: ");
@@ -73,22 +71,10 @@ int main(void){
                     statusInicializaPar = 1;
                 printf("Pilha inicializada! Podemos comecar...\n");
                 break;
-            case 2: //Verificar se a pilha esta vazia.
-                if(pilha_vazia(*pTopo))
-                    printf("A pilha esta vazia!\n");
-                else
-                    printf("A pilha nao esta vazia!\n");
-                break;
-            case 3: //Verificar se a pilha esta cheia.
-                if(pilha_cheia(*pTopo,T))
-                    printf("A pilha esta cheia!\n");
-                else
-                    printf("A pilha nao esta cheia!\n");
-                break;
-            case 4: //Consultar o primeiro elemento da pilha.
+            case 2: //Consultar o primeiro elemento da pilha.
                 consultar_pilha(pAux,*pTopo);
                 break;
-            case 5: //Empilha novo elemento.
+            case 3: //Empilha novo elemento.
                 /* Neste trecho precisamos validar se o elemento digitado (sendo par ou impar) vai
                  * ser alocado em uma pilha já inicializada.
                  */
@@ -107,10 +93,10 @@ int main(void){
                         printf("Ops! A pilha par não foi inicializada :(\n");
                 }
                 break;
-            case 6: //Desempilha elemento.
+            case 4: //Desempilha elemento.
                 *pTopo = desempilhar_elemento(pAux,*pTopo);
                 break;
-            case 7: //Listar pilha.
+            case 5: //Listar pilha.
                 system("clear");
                 printf("****** PILHAS ******\n\n");
                 if(statusInicializaImpar && statusInicializaPar)
