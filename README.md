@@ -12,6 +12,7 @@ Algoritimos utilizados na disciplina de estrutura de dados para aprendizagem da 
 # Lista de tarefas
 - [x] **iss001** - Compilar as funções verbo e funções auxiliares em uma biblioteca de pré-processamento (PILHAS).
 - [x] **iss002** - Alteração no código para trabalhar com dois vetores e validar elementos pares e impares (PILHAS).
+- [ ] **iss003** - Implementar alocação dinâmica de memória no algoritmo de pilhas. (PILHAS).
 
 # Referências gerais úteis
 
