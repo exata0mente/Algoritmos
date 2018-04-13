@@ -19,7 +19,7 @@ int main(void){
     int vetEntrada[T];
     int vetDefinitivo[T], vetTroca[T];
     int topoDefinitivo = -1, topoTroca = -1;
-    int i = 0;
+    int i = 0, indiceVetor = 0;
     int *pEntrada = vetEntrada;
     int *pDefinitivo = vetDefinitivo;
     int *pTroca = vetTroca;
@@ -35,11 +35,32 @@ int main(void){
     preenche_vetor(pEntrada);
     mostra_vetor(pEntrada);
     
+    //Atribuição do primeiro valor do vetor
+    topoDefinitivo = empilhar_elemento(pDefinitivo, topoDefinitivo, *vetEntrada, T);
+    indiceVetor++;
+    
+    printf("Vou entrar no primeiro while\n"); //log
+    printf("topoDefinitivo = %d\n", topoDefinitivo);
     //Ordenação     
-    for(i = 0; i < T; i++){
-        topoDefinitivo = empilhar_elemento(pDefinitivo, topoDefinitivo, *(pEntrada + i), T);
-        compara_pilhas();
-        
+    while(topoDefinitivo >= 0){
+        if(*(pEntrada + indiceVetor) > *(pDefinitivo + topoDefinitivo)){
+            topoTroca = empilhar_elemento(pTroca, topoTroca, *(pDefinitivo + topoDefinitivo), T);
+            topoDefinitivo = desempilhar_elemento(pDefinitivo, topoDefinitivo);
+            printf("Passo \n"); //log
+            printf("Topo1 = %d\tTopo2 = %d\n", topoDefinitivo, topoTroca);//log
+            listar_pilha(pDefinitivo,pTroca,topoDefinitivo,topoTroca,T);//log
+        }
+        else{
+            topoDefinitivo = empilhar_elemento(pDefinitivo, topoDefinitivo, *(pEntrada + indiceVetor), T);
+            while(topoTroca >= 0){
+                topoDefinitivo = empilhar_elemento(pDefinitivo, topoDefinitivo, *(pTroca + topoTroca), T);
+                topoTroca = desempilhar_elemento(pTroca, topoTroca);
+                printf("Passo \n"); //log
+                printf("Topo1 = %d\tTopo2 = %d\n", topoDefinitivo, topoTroca);//log
+                listar_pilha(pDefinitivo,pTroca,topoDefinitivo,topoTroca,T);//log
+            }
+        }
+        indiceVetor++;
     }
     
     listar_pilha(pDefinitivo,pTroca,topoDefinitivo,topoTroca,T);
@@ -62,22 +83,24 @@ void mostra_vetor(int *p){
         printf("%d, ", *(p + i));
     printf("\n");
 }
-// void percorre_vetor(int elemento, int *pt_1, int *pt_2, int *pv_1, int *pv_2){
-// 
-//     if(elemento < *(pv_1 + i)){
-//         *pt_2 = empilhar_elemento(pv_2, *pt_2, *(pv_1 + i), T);
-//         *pt_1 = desempilhar_elemento(pv_1, *pt_1);
-//         *pt_1 = empilhar_elemento(pv_1, *pt_1, elemento, T);
-//         *pt_1 = empilhar_elemento(pv_1, *pt_1, *(pv_2 + *pt_2), T);
-//         *pt_2 = desempilhar_elemento(pv_2, *pt_2);
-//     }
-//     else{
-//         *pt_1 = empilhar_elemento(pv_1, *pt_1, elemento, T);
-//     }
-// 
-// }
 
+// ENQUANTO topo_a > 0 FAÇA:
+//     SE elementoj < ai:
+//         EMPILHA ai EM b;
+//         topo_b++;
+//         DESEMPILHA a;
+//         topo_a--;
+//     SENAO:
+//         EMPILHA elemento EM a;
+//         topo_a++;
+//         ENQUANTO topo_b > 0:
+//             EMPILHA bi EM a;
+//             topo_a++;
+//             DESEMPILHA b;
+//             topo_b-;
+//         FIM_ENQUANTO;
+//     j++;
+// FIM_ENQUANTO;
 
 // Referências:
 // Números Aleatórios - https://www.ime.usp.br/~pf/algoritmos/aulas/random.html
-
