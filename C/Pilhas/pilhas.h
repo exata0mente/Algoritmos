@@ -12,14 +12,14 @@
 
 int pilha_vazia(int);
 int pilha_cheia(int,int);
-int inicializar_pilha(int*,int,int);
+int inicializar_pilha(int*,int);
 void consultar_pilha(int*,int);
 int empilhar_elemento(int*, int,int,int);
 int desempilhar_elemento(int*, int);
 void listar_pilha(int*, int*, int, int, int);
 
 
-int inicializar_pilha(int *p, int topo, int T){
+int inicializar_pilha(int *p, int T){
     
   int i = 0;
   
@@ -48,7 +48,7 @@ int empilhar_elemento(int *p, int topo,int elemento, int T){
         printf("Atencao! Pilha cheia! Utilize a funcao Listar\n");
     else{
         *(p + (++topo)) = elemento;
-        printf("Elemento %d empilhado!\n", *(p + topo));
+//         printf("Elemento %d empilhado!\n", *(p + topo));
     }
 
     return topo;
@@ -61,7 +61,7 @@ int desempilhar_elemento(int *p, int topo){
     }
     else{
       *(p + topo) = 0;
-      printf("Elemento desempilhado!\n");
+//       printf("Elemento desempilhado!\n");
       return --topo;
     }
 }
@@ -74,7 +74,7 @@ void listar_pilha(int *p1, int *p2, int topo1, int topo2, int T){
         printf("Pilha Impar [%d] = %d%s \t\t\t", i, *(p1 + i), (i == topo1) ? " *" : "");
         printf("Pilha Par [%d] = %d%s ", i, *(p2 + i), (i == topo2) ? " *\n" : "\n");
     }
-    printf("\nSendo * o topo da pilha\n");
+//     printf("\nSendo * o topo da pilha\n");
 }
 
 #endif
