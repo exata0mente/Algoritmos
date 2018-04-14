@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "pilhas.h"
-#define T 3
+#define T 5
 
 void preenche_vetor(int*);
 void mostra_vetor(int*);
@@ -38,34 +38,56 @@ int main(void){
     //Atribuição do primeiro valor do vetor
     topoDefinitivo = empilhar_elemento(pDefinitivo, topoDefinitivo, *vetEntrada, T);
     indiceVetor++;
+
+//     printf("\nPasso \n"); //log 
+//     printf("\nTopo1 = %d\tTopo2 = %d\n ", topoDefinitivo, topoTroca);//log
+//     listar_pilha(pDefinitivo,pTroca,topoDefinitivo,topoTroca,T);//log
     
-    printf("Vou entrar no primeiro while\n"); //log
-    printf("topoDefinitivo = %d\n", topoDefinitivo);
     //Ordenação     
-    while(topoDefinitivo >= 0){
-        if(*(pEntrada + indiceVetor) > *(pDefinitivo + topoDefinitivo)){
-            topoTroca = empilhar_elemento(pTroca, topoTroca, *(pDefinitivo + topoDefinitivo), T);
-            topoDefinitivo = desempilhar_elemento(pDefinitivo, topoDefinitivo);
-            printf("Passo \n"); //log
-            printf("Topo1 = %d\tTopo2 = %d\n", topoDefinitivo, topoTroca);//log
-            listar_pilha(pDefinitivo,pTroca,topoDefinitivo,topoTroca,T);//log
+    while(!(pilha_cheia(topoDefinitivo, T))){ // Enquanto a pilha não estiver cheia
+//         printf("Entrei no while 1\n");
+        if(*(pEntrada + indiceVetor) >= *(pDefinitivo + topoDefinitivo)){
+//             printf("Entrei no if 1\n");
+            while(*(pEntrada + indiceVetor) > *(pDefinitivo + topoDefinitivo)){
+//                 printf("Entrei no while 2\n");
+                //Empilha a_i em b
+                topoTroca = empilhar_elemento(pTroca, topoTroca, *(pDefinitivo + topoDefinitivo), T); 
+//                 printf("EMPILHEI! Topo1 = %d\tTopo2 = %d\n ", topoDefinitivo, topoTroca);
+                //Desempilha a_i
+                topoDefinitivo = desempilhar_elemento(pDefinitivo, topoDefinitivo);
+//                 printf("DESEMPILHEI! Topo1 = %d\tTopo2 = %d\n ", topoDefinitivo, topoTroca);
+//                 printf("\nTopo1 = %d\tTopo2 = %d\n ", topoDefinitivo, topoTroca);//log
+//                 listar_pilha(pDefinitivo,pTroca,topoDefinitivo,topoTroca,T);//log
+                if(pilha_vazia(topoDefinitivo)) break;
+            }
+            //Empilha elemento em a
+            topoDefinitivo = empilhar_elemento(pDefinitivo, topoDefinitivo, *(pEntrada + indiceVetor), T);
+            while(!pilha_vazia(topoTroca)){
+//                 printf("Entrei no while 3\n");
+                //Empilha b_i em a
+                topoDefinitivo = empilhar_elemento(pDefinitivo, topoDefinitivo, *(pTroca + topoTroca), T); 
+                //Desempilha b_i
+                topoTroca = desempilhar_elemento(pTroca, topoTroca);
+//                 printf("\nPasso \n"); //log
+//                 printf("\nTopo1 = %d\tTopo2 = %d\n ", topoDefinitivo, topoTroca);//log
+//                 listar_pilha(pDefinitivo,pTroca,topoDefinitivo,topoTroca,T);//log
+            }
+            
+//             printf("Passo \n"); //log
+//             printf("Topo1 = %d\tTopo2 = %d\n", topoDefinitivo, topoTroca);//log
+//             listar_pilha(pDefinitivo,pTroca,topoDefinitivo,topoTroca,T);//log
         }
         else{
             topoDefinitivo = empilhar_elemento(pDefinitivo, topoDefinitivo, *(pEntrada + indiceVetor), T);
-            while(topoTroca >= 0){
-                topoDefinitivo = empilhar_elemento(pDefinitivo, topoDefinitivo, *(pTroca + topoTroca), T);
-                topoTroca = desempilhar_elemento(pTroca, topoTroca);
-                printf("Passo \n"); //log
-                printf("Topo1 = %d\tTopo2 = %d\n", topoDefinitivo, topoTroca);//log
-                listar_pilha(pDefinitivo,pTroca,topoDefinitivo,topoTroca,T);//log
-            }
         }
+        
         indiceVetor++;
     }
     
+//     printf("\n\n ");
     listar_pilha(pDefinitivo,pTroca,topoDefinitivo,topoTroca,T);
-    printf("\n");
     
+//         mostra_vetor(pDefinitivo);
     return 0;
 
 }
@@ -80,27 +102,9 @@ void mostra_vetor(int *p){
     int i = 0;
     
     for(i = 0; i < T; i++)
-        printf("%d, ", *(p + i));
-    printf("\n");
+        printf("%d. ", *(p + i));
+    printf("\n\n ");
 }
-
-// ENQUANTO topo_a > 0 FAÇA:
-//     SE elementoj < ai:
-//         EMPILHA ai EM b;
-//         topo_b++;
-//         DESEMPILHA a;
-//         topo_a--;
-//     SENAO:
-//         EMPILHA elemento EM a;
-//         topo_a++;
-//         ENQUANTO topo_b > 0:
-//             EMPILHA bi EM a;
-//             topo_a++;
-//             DESEMPILHA b;
-//             topo_b-;
-//         FIM_ENQUANTO;
-//     j++;
-// FIM_ENQUANTO;
 
 // Referências:
 // Números Aleatórios - https://www.ime.usp.br/~pf/algoritmos/aulas/random.html
