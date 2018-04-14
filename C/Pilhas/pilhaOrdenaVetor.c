@@ -12,7 +12,6 @@
 
 void preenche_vetor(int*);
 void mostra_vetor(int*);
-// void percorre_vetor(int, int*, int*, int*, int*);
 
 int main(void){
 
@@ -39,43 +38,24 @@ int main(void){
     topoDefinitivo = empilhar_elemento(pDefinitivo, topoDefinitivo, *vetEntrada, T);
     indiceVetor++;
 
-//     printf("\nPasso \n"); //log 
-//     printf("\nTopo1 = %d\tTopo2 = %d\n ", topoDefinitivo, topoTroca);//log
-//     listar_pilha(pDefinitivo,pTroca,topoDefinitivo,topoTroca,T);//log
-    
     //Ordenação     
     while(!(pilha_cheia(topoDefinitivo, T))){ // Enquanto a pilha não estiver cheia
-//         printf("Entrei no while 1\n");
         if(*(pEntrada + indiceVetor) >= *(pDefinitivo + topoDefinitivo)){
-//             printf("Entrei no if 1\n");
             while(*(pEntrada + indiceVetor) > *(pDefinitivo + topoDefinitivo)){
-//                 printf("Entrei no while 2\n");
                 //Empilha a_i em b
                 topoTroca = empilhar_elemento(pTroca, topoTroca, *(pDefinitivo + topoDefinitivo), T); 
-//                 printf("EMPILHEI! Topo1 = %d\tTopo2 = %d\n ", topoDefinitivo, topoTroca);
                 //Desempilha a_i
                 topoDefinitivo = desempilhar_elemento(pDefinitivo, topoDefinitivo);
-//                 printf("DESEMPILHEI! Topo1 = %d\tTopo2 = %d\n ", topoDefinitivo, topoTroca);
-//                 printf("\nTopo1 = %d\tTopo2 = %d\n ", topoDefinitivo, topoTroca);//log
-//                 listar_pilha(pDefinitivo,pTroca,topoDefinitivo,topoTroca,T);//log
                 if(pilha_vazia(topoDefinitivo)) break;
             }
             //Empilha elemento em a
             topoDefinitivo = empilhar_elemento(pDefinitivo, topoDefinitivo, *(pEntrada + indiceVetor), T);
             while(!pilha_vazia(topoTroca)){
-//                 printf("Entrei no while 3\n");
                 //Empilha b_i em a
                 topoDefinitivo = empilhar_elemento(pDefinitivo, topoDefinitivo, *(pTroca + topoTroca), T); 
                 //Desempilha b_i
                 topoTroca = desempilhar_elemento(pTroca, topoTroca);
-//                 printf("\nPasso \n"); //log
-//                 printf("\nTopo1 = %d\tTopo2 = %d\n ", topoDefinitivo, topoTroca);//log
-//                 listar_pilha(pDefinitivo,pTroca,topoDefinitivo,topoTroca,T);//log
             }
-            
-//             printf("Passo \n"); //log
-//             printf("Topo1 = %d\tTopo2 = %d\n", topoDefinitivo, topoTroca);//log
-//             listar_pilha(pDefinitivo,pTroca,topoDefinitivo,topoTroca,T);//log
         }
         else{
             topoDefinitivo = empilhar_elemento(pDefinitivo, topoDefinitivo, *(pEntrada + indiceVetor), T);
@@ -84,10 +64,8 @@ int main(void){
         indiceVetor++;
     }
     
-//     printf("\n\n ");
     listar_pilha(pDefinitivo,pTroca,topoDefinitivo,topoTroca,T);
     
-//         mostra_vetor(pDefinitivo);
     return 0;
 
 }
