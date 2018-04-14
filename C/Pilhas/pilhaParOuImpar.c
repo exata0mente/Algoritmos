@@ -36,7 +36,7 @@ int main(void){
         opcPilha = 0;
 
         while(opcPilha != 1 && opcPilha != 2){
-            if(opcMenu > 0 && opcMenu < 5){
+            if(opcMenu > 0 && opcMenu < 5 && opcMenu != 3){
                 /* Algumas das opções do menu não necessitam a discriminação da pilha. 
                  * Este trecho verifica se a opção solicitada se encaixa nesta condição. 
                  */
