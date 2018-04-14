@@ -64,7 +64,7 @@ int main(void){
                 printf("Encerrando ... \n");
                 break;
             case 1: //Inicializar uma pilha.
-                *pTopo = inicializar_pilha(pAux,*pTopo,T);
+                *pTopo = inicializar_pilha(pAux, T);
                 if(opcPilha == 1)
                     statusInicializaImpar = 1;
                 else
