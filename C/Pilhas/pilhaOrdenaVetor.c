@@ -14,6 +14,7 @@
 void preenche_vetor_aleatorio(int*);
 void preenche_vetor_manual(int*);
 void mostra_vetor(int*);
+void menu_interacao_usuario(int*);
 
 int main(void){
 
@@ -31,46 +32,9 @@ int main(void){
     topoTroca = inicializar_pilha(pTroca, T);
     topoDefinitivo = inicializar_pilha(pDefinitivo, T);
     
-    //Preenchimento do vetor
-    while(opcUsuario == -1){
-        system("clear");
-        printf("Escolha a forma que será preenchido o vetor: [1] Manual\t[2] Aleatório\n");
-        printf("Opção: ");
-        scanf("%d%*c", &opcUsuario);
-        if(opcUsuario != 1 && opcUsuario != 2)
-            opcUsuario = -1;
-    }
-    
-    switch(opcUsuario){
-        case 1:
-            preenche_vetor_manual(pEntrada);
-            break;
-        case 2:
-            opcUsuario = -1; //reutilização da variável
-            while(opcUsuario == -1){
-                printf("\nGostaria de Definir alguma seed? [1] Sim [2] Não (gera com time(NULL))\n");
-                printf("Opção: ");
-                scanf("%d%*c", &opcUsuario);
-                switch(opcUsuario){
-                    case 1:
-                        printf("Seed: ");
-                        scanf("%d%*c", &seed);
-                        srand(seed);
-                        preenche_vetor_aleatorio(pEntrada);
-                        break;
-                    case 2:
-                        srand(time(NULL));
-                        preenche_vetor_aleatorio(pEntrada);
-                        printf("\n\n***** Preenchimento automático *****\n\n");
-                        mostra_vetor(pEntrada);
-                        break;
-                    default:
-                        opcUsuario = -1;
-                }
-            }
-            break;
-            
-    }
+    //Definição e preenchimento do vetor
+    menu_interacao_usuario(pEntrada);
+
     //Atribuição do primeiro valor do vetor
     topoDefinitivo = empilhar_elemento(pDefinitivo, topoDefinitivo, *vetEntrada, T);
     indiceVetor++;
@@ -139,6 +103,57 @@ void mostra_vetor(int *p){
     for(i = 0; i < T; i++)
         printf("%d. ", *(p + i));
 }
-
+void menu_interacao_usuario(int *pDados){
+    /* Recebe um endereço de memória e solicita ao usário como será o método
+     * de preenchimento de cada elemento: Manual, aleatório com seed definida
+     * ou aleatório com seed indefinida.
+     */
+    
+    
+    int opcUsuario = -1;
+    int seed;
+    
+    
+    while(opcUsuario == -1){
+        system("clear");
+        printf("Escolha a forma que será preenchido o vetor: [1] Manual\t[2] Aleatório\n");
+        printf("Opção: ");
+        scanf("%d%*c", &opcUsuario);
+        if(opcUsuario != 1 && opcUsuario != 2)
+            opcUsuario = -1;
+    }
+    
+    switch(opcUsuario){
+        case 1:
+            preenche_vetor_manual(pDados);
+            break;
+        case 2:
+            opcUsuario = -1; //reutilização da variável
+            while(opcUsuario == -1){
+                printf("\nGostaria de Definir alguma seed? [1] Sim [2] Não (gera com time(NULL))\n");
+                printf("Opção: ");
+                scanf("%d%*c", &opcUsuario);
+                switch(opcUsuario){
+                    case 1:
+                        printf("Seed: ");
+                        scanf("%d%*c", &seed);
+                        srand(seed);
+                        preenche_vetor_aleatorio(pDados);
+                        break;
+                    case 2:
+                        srand(time(NULL));
+                        preenche_vetor_aleatorio(pDados);
+                        printf("\n\n***** Preenchimento automático *****\n\n");
+                        mostra_vetor(pDados);
+                        break;
+                    default:
+                        opcUsuario = -1;
+                }
+            }
+            break;
+            
+    }    
+    
+}
 // Referências:
 // Números Aleatórios - https://www.ime.usp.br/~pf/algoritmos/aulas/random.html
