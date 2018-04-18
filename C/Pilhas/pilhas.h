@@ -71,8 +71,8 @@ void listar_pilha(int *p1, int *p2, int topo1, int topo2, int T){
 
     for(i = T-1; i >= 0;i--){
         
-        printf("Pilha Impar [%d] = %d%s \t\t\t", i, *(p1 + i), (i == topo1) ? " *" : "");
-        printf("Pilha Par [%d] = %d%s ", i, *(p2 + i), (i == topo2) ? " *\n" : "\n");
+        printf("Pilha A [%d] = %d%s \t\t\t", i, *(p1 + i), (i == topo1) ? " *" : "");
+        printf("Pilha B [%d] = %d%s", i, *(p2 + i), (i == topo2) ? " *\n" : "\n");
     }
 //     printf("\nSendo * o topo da pilha\n");
 }
