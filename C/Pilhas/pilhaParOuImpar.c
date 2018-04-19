@@ -10,6 +10,7 @@
 
 int menu_opcoes(void);
 int menu_define_pilha_uso(int, int);
+int define_pilha_uso()
 
 int main(void){
   
@@ -33,7 +34,6 @@ int main(void){
     while(opcMenu != 0){
 
         opcMenu = menu_opcoes();
-        opcPilha = 0;
         opcPilha = menu_define_pilha_uso(opcMenu,opcPilha);
 
         if(opcPilha == 1){
@@ -125,7 +125,6 @@ int menu_opcoes(void){
         return op;
         
 }
-
 int menu_define_pilha_uso(int opMenu, int opPilha){
     
     opPilha = 0;

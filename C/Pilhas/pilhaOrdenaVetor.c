@@ -82,6 +82,10 @@ int main(void){
     
     printf("\n\n***** Pilha ordenada *****\n\n");
     listar_pilha(pDefinitivo,pTroca,topoDefinitivo,topoTroca,tamanhoVetor);
+
+    free(pDefinitivo);
+    free(pEntrada);
+    free(pTroca);
     
     return 0;
 
