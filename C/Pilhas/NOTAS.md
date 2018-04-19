@@ -23,7 +23,14 @@ A função `malloc` recebe como argumento um tamanho (em bytes) e retorna o ende
     scanf("%d",&tam);
     p = malloc(tam * sizeof(int));
     
-Neste código criamos um ponteiro, e uma variável para receber o tamanho do ponteiro. Aí então atribuímos ao ponteiro **um endereço de memória, sequência, que comporto `tam` vezes variáveis int**
+Neste código criamos um ponteiro, e uma variável para receber um tamanho do ponteiro. Aí então atribuímos ao ponteiro **um endereço de memória, sequência, que comporto `tam` vezes variáveis int**.
+
+Didaticamente, e apenas didaticamente, podemos ver como a maneira correta para
+
+    int tam;
+    scanf("%d",&tam);
+    int vet[tam];
+    
 
 
 ## Referências
