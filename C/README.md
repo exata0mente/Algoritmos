@@ -8,6 +8,7 @@ Este arquivo serve para dar um breve resumo sobre o conteúdo desta pasta mas es
 
 ### Alocação Dinâmica em C
 
+#### A função `malloc`
 Quando iniciamos o aprendizado em C, uma das estruturas de dados que causa certa dificuldade é o vetor. Entre pontos conceituais é muito comum ver e ouvir em sala de aula um colega de classe questionando: "posso solicitar ao usuário o tamanho do vetor, associar em uma variável e então declarar um vetor com o tamanho dado pelo cliente?". Prontamente a resposta de nossos professores é *não*.  
 
 Acontece que a alocação do espaço de memória que uma variável vai necessitar do sistema, é separada em **tempo de compilação**, pois é nesse momento que o compilador irá "informar" ao sistema o quanto de memória aquele código irá necessitar.  
@@ -31,8 +32,51 @@ Didaticamente, e apenas didaticamente, podemos ver como a maneira correta para
     scanf("%d",&tam);
     int vet[tam];
     
+#### A função `free`
 
+Ao término de uma função, o espaço de memória reservado para as variáveis declaradas em seu escopo (variáveis locais) é liberado para posterior uso. Porém, ao se utilizar as funções de alocação dinâmica, o espaço alocado não é liberado, permacendo travado para uso no sistema operacional.
+
+Por exemplo:
+
+    void teste(void){
+        int i, j, k, l, m;
+        
+        i = 1; j = 25; l = 9;
+        
+    }
+    
+Quando esta função for chamada pelo programa, será alocado memória para as 5 variáveis e ao termino da função, será liberado o espaço utilizado (nossos professores costumam falar que a variável é "destruída").
+
+Já no exemplo retirado deste [artigo](https://www.cprogressivo.net/2013/10/Funcao-free-Como-liberar-memoria-e-evitar-vazamento.html) ilustra como a alocação de memória dinâmica pode ser perigosa:
+
+    #include <stdio.h>
+    #include <stdlib.h>
+
+    void aloca()
+    {
+        int *ptr;
+        ptr = (int *) malloc(100);
+    }
+
+    int main(void)
+    {
+        while(1)
+        aloca();
+
+        return 0;
+    }
+        
+Há um looping infinito que entra na função `aloca` e reserva 100 bytes de memória. Quando a função `aloca` acaba, o espaço reservado não é liberado, mantendo espaços de memória desnecessariamente bloqueados para uso.
+
+Para evitar problemas como este utiliza-se a função `free` da biblioteca `stdlib.h`.
+
+Esta função libera para uso o espaço de memória reservado para um ponteiro. Com isso, em um eventual `malloc` no mesmo código este espaço de memória pode ser reutilizado.
+
+Recomenda-se então que, ao **final do uso de um ponteiro ele seja liberado**.
+
+Há ainda observações sobre [atribuir valor NULL à um endereço de memória liberado](https://www.ime.usp.br/~pf/algoritmos/aulas/footnotes/null-after-free.html) e também um [exemplo](https://www.cprogressivo.net/2013/10/Funcao-free-Como-liberar-memoria-e-evitar-vazamento.html) de possível exploração do valor de "ponteiro solto".
 
 ## Referências
 
- - Alocação Dinâmica - [Site da USP](https://www.ime.usp.br/~pf/algoritmos/aulas/aloca.html)
+ -- Alocação Dinâmica - [Site da USP](https://www.ime.usp.br/~pf/algoritmos/aulas/aloca.html)
+ -- Uso da função `free` = [CProgressivo](https://www.cprogressivo.net/2013/10/Funcao-free-Como-liberar-memoria-e-evitar-vazamento.html)
