@@ -3,57 +3,45 @@
  * Descrição: Aplicar as funções implementadas de pilha em duas pilhas, par ou impar.
  */
 
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "pilhas.h"
-#define T 5
+#define T_MAX 20
+
+int menu_opcoes(void);
+int menu_define_pilha_uso(int, int);
 
 int main(void){
   
     int topoImpar = -1, topoPar = -1,opcMenu = -1, opcPilha = 0, elementoPilha = -1, statusInicializaImpar = 0, statusInicializaPar = 0;
-    int pilhaImpar[T], pilhaPar[T];
-    int *pI = pilhaImpar, *pP = pilhaPar, *pAux = NULL, *pTopo = NULL;
+    int tamanhoPilha = 1;
+    int *pI, *pP, *pAux, *pTopo;
     
     printf("==============================================================\n");
     printf("PILHAS PAR OU IMPAR\n");
     printf("==============================================================\n");
+    
+    printf("Por gentileza, defina o tamanho da pilha, respeitando o limite de %d posições\n", T_MAX);
+    printf("Tamanho: ");
+    scanf("%d", &tamanhoPilha);
 
+    pI = malloc(tamanhoPilha * sizeof(int));
+    pP = malloc(tamanhoPilha * sizeof(int));
+    pAux = malloc(tamanhoPilha * sizeof(int));
+    pTopo = malloc(sizeof(int));
     
     while(opcMenu != 0){
 
-        printf("\nEscolha o que deseja fazer\n\n");
-        printf("1) Inicializar uma pilha\n");
-        printf("2) Consultar o primeiro elemento da pilha\n");
-        printf("3) Empilhar novo elemento\n");
-        printf("4) Desempilhar elemento\n");
-        printf("5) Listar pilhas\n");
-        printf("0) Sair\n");
-        
-        printf("\nOpcao: ");
-        scanf("%d%*c", &opcMenu);
-        printf("\n\n");
-        
+        opcMenu = menu_opcoes();
         opcPilha = 0;
+        opcPilha = menu_define_pilha_uso(opcMenu,opcPilha);
 
-        while(opcPilha != 1 && opcPilha != 2){
-            if(opcMenu > 0 && opcMenu < 5 && opcMenu != 3){
-                /* Algumas das opções do menu não necessitam a discriminação da pilha. 
-                 * Este trecho verifica se a opção solicitada se encaixa nesta condição. 
-                 */
-                printf("Em qual pilha deseja utilizar? [1] Impar [2] Par\n");
-                printf("Pilha: ");
-                scanf("%d%*c", &opcPilha);
-            }
-            else
-                break;
-        }
-        
         if(opcPilha == 1){
-            pAux = pilhaImpar;
+            pAux = pI;
             pTopo = &topoImpar;
         }
         else{
-            pAux = pilhaPar;
+            pAux = pP;
             pTopo = &topoPar;
         }
         
@@ -64,7 +52,7 @@ int main(void){
                 printf("Encerrando ... \n");
                 break;
             case 1: //Inicializar uma pilha.
-                *pTopo = inicializar_pilha(pAux, T);
+                *pTopo = inicializar_pilha(pAux, tamanhoPilha);
                 if(opcPilha == 1)
                     statusInicializaImpar = 1;
                 else
@@ -82,13 +70,13 @@ int main(void){
                 scanf("%d%*c",&elementoPilha);
                 if(elementoPilha % 2){
                     if(statusInicializaImpar > 0)
-                        topoImpar = empilhar_elemento(pilhaImpar,topoImpar,elementoPilha,T);
+                        topoImpar = empilhar_elemento(pI,topoImpar,elementoPilha,tamanhoPilha);
                     else
                         printf("Ops! A pilha impar não foi inicializada :(\n");
                 }
                 else{
                     if(statusInicializaPar > 0)
-                        topoPar = empilhar_elemento(pilhaPar,topoPar,elementoPilha,T);
+                        topoPar = empilhar_elemento(pP,topoPar,elementoPilha,tamanhoPilha);
                     else
                         printf("Ops! A pilha par não foi inicializada :(\n");
                 }
@@ -100,7 +88,7 @@ int main(void){
                 system("clear");
                 printf("****** PILHAS ******\n\n");
                 if(statusInicializaImpar && statusInicializaPar)
-                    listar_pilha(pI,pP,topoImpar,topoPar,T);
+                    listar_pilha(pI,pP,topoImpar,topoPar,tamanhoPilha);
                 else
                     printf("Ops! Alguma pilha não foi inicializada...\n");
                 printf("Aperte para continuar ");getchar();
@@ -115,4 +103,43 @@ int main(void){
   }
     
   return 0;
+}
+
+int menu_opcoes(void){
+    
+    int op;
+    
+        printf("\nEscolha o que deseja fazer\n\n");
+        printf("1) Inicializar uma pilha\n");
+        printf("2) Consultar o primeiro elemento da pilha\n");
+        printf("3) Empilhar novo elemento\n");
+        printf("4) Desempilhar elemento\n");
+        printf("5) Listar pilhas\n");
+        printf("6) Definir novo tamanho para a pilha\n");
+        printf("0) Sair\n");
+        
+        printf("\nOpcao: ");
+        scanf("%d%*c", &op);
+        printf("\n\n");
+        
+        return op;
+        
+}
+
+int menu_define_pilha_uso(int opMenu, int opPilha){
+    
+    opPilha = 0;
+    while(opPilha != 1 && opPilha != 2){
+        if(opMenu > 0 && opMenu < 5 && opMenu != 3){
+            /* Algumas das opções do menu não necessitam a discriminação da pilha. 
+                * Este trecho verifica se a opção solicitada se encaixa nesta condição. 
+                */
+            printf("Em qual pilha deseja utilizar? [1] Impar [2] Par\n");
+            printf("Pilha: ");
+            scanf("%d%*c", &opPilha);
+        }
+        else
+            break;
+    }
+    return opPilha;
 }
