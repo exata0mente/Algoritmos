@@ -76,7 +76,30 @@ Recomenda-se então que, ao **final do uso de um ponteiro ele seja liberado**.
 
 Há ainda observações sobre [atribuir valor NULL à um endereço de memória liberado](https://www.ime.usp.br/~pf/algoritmos/aulas/footnotes/null-after-free.html) e também um [exemplo](https://www.cprogressivo.net/2013/10/Funcao-free-Como-liberar-memoria-e-evitar-vazamento.html) de possível exploração do valor de "ponteiro solto".
 
+#### A função realloc
+
+Esta função, como sugere o nome, realoca o espaço de memória de um ponteiro de forma dinâmica. Seu retorno é o novo endereço de memória, que possui o tamanho solicitado.
+
+Uso simples:
+
+    int main(){
+        int *ptr;
+        int tam;
+        ...
+        printf("Digite o novo tamanho de seu ponteiro: \n");
+        scanf("%d", &tam);
+        
+        ptr = realloc(ptr, tam * sizeof(int))
+        ....
+    }
+
+#### Recomendações no uso de alocação dinâmica
+
+Como se pode notar, as funções alloc não limitam o valor que pode ser passado como parâmetro, sendo assim, podemos ter casos em que a função receba algo como 9999999999 ou podemos nos deparar com a situação de não haver realmente espaço na memória. 
+Quando isso ocorre, a função retorna o valor `NULL` para o ponteiro. Sugere-se então [o uso de um `if` para identificação destes casos](https://www.cprogressivo.net/2013/10/A-funcao-realloc-realocando-memoria-dinamicamente-e-a-calloc.html) ou o uso de uma [função-embalagem (**wrapper-function**)](https://www.ime.usp.br/~pf/algoritmos/aulas/aloca.html).
+    
 ## Referências
 
- -- Alocação Dinâmica - [Site da USP](https://www.ime.usp.br/~pf/algoritmos/aulas/aloca.html)
- -- Uso da função `free` = [CProgressivo](https://www.cprogressivo.net/2013/10/Funcao-free-Como-liberar-memoria-e-evitar-vazamento.html)
+ -- Alocação Dinâmica - [Site da USP](https://www.ime.usp.br/~pf/algoritmos/aulas/aloca.html)  
+ -- Uso da função `free` = [CProgressivo](https://www.cprogressivo.net/2013/10/Funcao-free-Como-liberar-memoria-e-evitar-vazamento.html)  
+ -- Função `realloc` = [CProgressivo](https://www.cprogressivo.net/2013/10/A-funcao-realloc-realocando-memoria-dinamicamente-e-a-calloc.html)
