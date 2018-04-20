@@ -9,22 +9,31 @@
 #define T_MAX 20
 
 int menu_opcoes(void);
+int obter_tamanho_pilha(void);
 int menu_define_pilha_uso(int, int);
-int define_pilha_uso()
 
 int main(void){
   
-    int topoImpar = -1, topoPar = -1,opcMenu = -1, opcPilha = 0, elementoPilha = -1, statusInicializaImpar = 0, statusInicializaPar = 0;
-    int tamanhoPilha = 1;
-    int *pI, *pP, *pAux, *pTopo;
+    //Definição de variáveis de controle
+    int topoImpar = -1,
+        topoPar = -1,
+        opcMenu = -1,
+        opcPilha = 0,
+        elementoPilha = -1,
+        statusInicializaImpar = 0,
+        statusInicializaPar = 0,
+        tamanhoPilha = 1;
+    //Definição dos ponteiros
+    int *pI,
+        *pP,
+        *pAux,
+        *pTopo;
     
     printf("==============================================================\n");
     printf("PILHAS PAR OU IMPAR\n");
     printf("==============================================================\n");
     
-    printf("Por gentileza, defina o tamanho da pilha, respeitando o limite de %d posições\n", T_MAX);
-    printf("Tamanho: ");
-    scanf("%d", &tamanhoPilha);
+    tamanhoPilha = obter_tamanho_pilha();
 
     pI = malloc(tamanhoPilha * sizeof(int));
     pP = malloc(tamanhoPilha * sizeof(int));
@@ -93,6 +102,16 @@ int main(void){
                     printf("Ops! Alguma pilha não foi inicializada...\n");
                 printf("Aperte para continuar ");getchar();
                 break;
+            case 6: //realoca o tamanho da pilha
+                tamanhoPilha = obter_tamanho_pilha();
+                printf("LOG -- tamanhoPilha = %d\n", tamanhoPilha);
+                pAux = realloc(pAux, tamanhoPilha * sizeof(int));
+                printf("LOG -- realoquei pAux\n");
+                pI = realloc(pI, tamanhoPilha * sizeof(int));
+                printf("LOG -- realoquei pI\n");
+                pP = realloc(pP, tamanhoPilha * sizeof(int));
+                printf("LOG -- realoquei pP\n");
+                break;
             default:
                 printf("Opcao invalida! Vamos tentar de novo?\n");
                 break;
@@ -107,6 +126,21 @@ int main(void){
     free(pI);free(pP);free(pAux);free(pTopo);  
     
     return 0;
+}
+int obter_tamanho_pilha(void){
+    
+    int tamanhoVetor = 0;
+    
+    //system("clear");
+    while(tamanhoVetor <= 0 || tamanhoVetor >= T_MAX){
+        printf("Por gentileza, defina o tamanho da pilha, respeitando o limite de %d posições\n", T_MAX);
+        printf("Tamanho: ");
+        scanf("%d", &tamanhoVetor);
+        if(tamanhoVetor <= 0 || tamanhoVetor >= T_MAX)
+            printf("Valor não válido. Vamos tentar novamente ...\n");
+    }
+    
+    return tamanhoVetor;
 }
 
 int menu_opcoes(void){
