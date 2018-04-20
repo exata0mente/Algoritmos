@@ -83,6 +83,7 @@ int main(void){
     printf("\n\n***** Pilha ordenada *****\n\n");
     listar_pilha(pDefinitivo,pTroca,topoDefinitivo,topoTroca,tamanhoVetor);
 
+    //Libera o espaço de memória reservado para os ponteiros
     free(pDefinitivo);
     free(pEntrada);
     free(pTroca);

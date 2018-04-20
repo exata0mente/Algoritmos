@@ -102,7 +102,11 @@ int main(void){
         
   }
     
-  return 0;
+    
+    //Libera o espaço de memória reservado aos ponteiros
+    free(pI);free(pP);free(pAux);free(pTopo);  
+    
+    return 0;
 }
 
 int menu_opcoes(void){
