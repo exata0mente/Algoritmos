@@ -2,7 +2,7 @@
 
 Repositório para inserção de algoritmos criados ao decorrer do periodo acadêmico.
 
-# Lista de Algoritmos
+# Lista de Pastas
 
 ## Linguagem C 
 ### Pilhas

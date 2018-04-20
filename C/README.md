@@ -4,6 +4,10 @@ Este arquivo serve para dar um breve resumo sobre o conteúdo desta pasta mas es
 
 ## Descrição dos arquivos
 
+- [pilhaOrdenaVetor.c](https://raw.githubusercontent.com/exata0mente/Algoritmos/master/C/Pilhas/pilhaOrdenaVetor.c): Recebe um vetor de dados, preenchido manual ou aleatoriamente, e ordena, em ordem crescente, utilizando duas pilhas: uma definitiva e uma auxiliar.
+- [pilhaParOuImpar.c](https://raw.githubusercontent.com/exata0mente/Algoritmos/master/C/Pilhas/pilhaParOuImpar.c): Implementa as funções-verbo utilizada na estrutura de dados pilha. Além das funções verbo. Além das funções-verbo, há uma implementação de empilhamento de elementos pares e impares em duas pilhas distintas.
+- [pilhas.h](https://raw.githubusercontent.com/exata0mente/Algoritmos/master/C/Pilhas/pilhas.h): Arquivo fonte com as definições das funções-verbo utilizada em pilhas. 
+
 ## Notas de Aula
 
 ### Alocação Dinâmica em C
