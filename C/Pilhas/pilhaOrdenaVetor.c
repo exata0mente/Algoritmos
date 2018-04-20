@@ -11,20 +11,24 @@
 #include "pilhas.h"
 #define T_MAX 20
 
-void preenche_vetor_aleatorio(int*,int);
-void preenche_vetor_manual(int*,int);
-void mostra_vetor(int*,int);
-void menu_interacao_usuario(int*,int);
 int obter_tamanho_vetor(void);
+void menu_interacao_usuario(int*,int);
+void preenche_vetor_manual(int*,int);
+void preenche_vetor_aleatorio(int*,int);
+void mostra_vetor(int*,int);
+
 
 int main(void){
 
-    int topoDefinitivo = -1, topoTroca = -1;
-    int i = 0, indiceVetor = 0;
-    int tamanhoVetor = 0;
-    int *pEntrada;
-    int *pDefinitivo;
-    int *pTroca;
+    int topoDefinitivo = -1, 
+        topoTroca = -1,
+        i = 0, 
+        indiceVetor = 0,
+        tamanhoVetor = 0;
+    
+    int *pEntrada,
+        *pDefinitivo,
+        *pTroca;
 
     //Obtenção do tamanho do vetor passado pelo usuário
     tamanhoVetor = obter_tamanho_vetor();
@@ -91,6 +95,23 @@ int main(void){
     return 0;
 
 }
+
+int obter_tamanho_vetor(void){
+    
+    int tamanhoVetor = 0;
+    
+    system("clear");
+    while(tamanhoVetor <= 0 || tamanhoVetor >= T_MAX){
+        printf("Qual será o tamanho do seu vetor? 'Com grandes poderes vem grandes responsabilidades'\n");
+        printf("Tamanho: ");
+        scanf("%d", &tamanhoVetor);
+        if(tamanhoVetor <= 0 || tamanhoVetor >= T_MAX)
+            printf("Valor não válido. Vamos tentar novamente ...\n");
+    }
+    
+    return tamanhoVetor;
+}
+
 void menu_interacao_usuario(int *pDados, int tam_vet){
     /* Recebe um endereço de memória e solicita ao usário como será o método
      * de preenchimento de cada elemento: Manual, aleatório com seed definida
@@ -166,20 +187,6 @@ void mostra_vetor(int *p, int T){
         printf("%d. ", *(p + i));
 }
 
-int obter_tamanho_vetor(void){
-    
-    int tamanhoVetor = 0;
-    
-    system("clear");
-    while(tamanhoVetor <= 0 || tamanhoVetor >= T_MAX){
-        printf("Qual será o tamanho do seu vetor? 'Com grandes poderes vem grandes responsabilidades'\n");
-        printf("Tamanho: ");
-        scanf("%d", &tamanhoVetor);
-        if(tamanhoVetor <= 0 || tamanhoVetor >= T_MAX)
-            printf("Valor não válido. Vamos tentar novamente ...\n");
-    }
-    
-    return tamanhoVetor;
-}
+
 // Referências:
 // Números Aleatórios - https://www.ime.usp.br/~pf/algoritmos/aulas/random.html
