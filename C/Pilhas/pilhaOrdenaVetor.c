@@ -10,12 +10,14 @@
 #include <time.h>
 #include "pilhas.h"
 #define T_MAX 20
+#define MOSTRA_LOG 1
 
 int obter_tamanho_vetor(void);
 void menu_interacao_usuario(int*,int);
 void preenche_vetor_manual(int*,int);
 void preenche_vetor_aleatorio(int*,int);
 void mostra_vetor(int*,int);
+void mostra_log(int*,int);
 
 
 int main(void){
@@ -48,6 +50,12 @@ int main(void){
     //Atribuição do primeiro valor do vetor
     topoDefinitivo = empilhar_elemento(pDefinitivo, topoDefinitivo, *pEntrada, tamanhoVetor);
     indiceVetor++;
+    if(MOSTRA_LOG){
+        mostra_log(pEntrada, tamanhoVetor);
+        listar_pilha(pDefinitivo,pTroca,topoDefinitivo,topoTroca,tamanhoVetor);
+        printf("\nAperte para continuar ");getchar();
+    }
+
 
     //Ordenação     
     while(!(pilha_cheia(topoDefinitivo, tamanhoVetor))){ 
@@ -66,25 +74,47 @@ int main(void){
                  */
                 topoTroca = empilhar_elemento(pTroca, topoTroca, *(pDefinitivo + topoDefinitivo), tamanhoVetor); 
                 topoDefinitivo = desempilhar_elemento(pDefinitivo, topoDefinitivo);
+                if(MOSTRA_LOG){
+                    mostra_log(pEntrada, tamanhoVetor);
+                    listar_pilha(pDefinitivo,pTroca,topoDefinitivo,topoTroca,tamanhoVetor);
+                    printf("\nAperte para continuar ");getchar();
+                }
                 if(pilha_vazia(topoDefinitivo)) break;
             }
             topoDefinitivo = empilhar_elemento(pDefinitivo, topoDefinitivo, *(pEntrada + indiceVetor), tamanhoVetor);
+            if(MOSTRA_LOG){
+                    mostra_log(pEntrada, tamanhoVetor);
+                    listar_pilha(pDefinitivo,pTroca,topoDefinitivo,topoTroca,tamanhoVetor);
+                    printf("\nAperte para continuar ");getchar();
+                }
             while(!pilha_vazia(topoTroca)){
                 /* Reempilha os elementos da pTroca em pDefinitivo, mantendo a pilha sempre na ordenação
                  * configurada.
                  */
                 topoDefinitivo = empilhar_elemento(pDefinitivo, topoDefinitivo, *(pTroca + topoTroca), tamanhoVetor); 
                 topoTroca = desempilhar_elemento(pTroca, topoTroca);
+                if(MOSTRA_LOG){
+                    mostra_log(pEntrada, tamanhoVetor);
+                    listar_pilha(pDefinitivo,pTroca,topoDefinitivo,topoTroca,tamanhoVetor);
+                    printf("\nAperte para continuar ");getchar();
+                }
             }
         }
         else{
             topoDefinitivo = empilhar_elemento(pDefinitivo, topoDefinitivo, *(pEntrada + indiceVetor), tamanhoVetor);
+            if(MOSTRA_LOG){
+                    mostra_log(pEntrada, tamanhoVetor);
+                    listar_pilha(pDefinitivo,pTroca,topoDefinitivo,topoTroca,tamanhoVetor);
+                    printf("\nAperte para continuar ");getchar();
+            }
         }
         
         indiceVetor++;
     }
     
-    printf("\n\n***** Pilha ordenada *****\n\n");
+    system("clear");
+    printf("***** Pilha ordenada *****\n");
+    mostra_vetor(pEntrada, tamanhoVetor);
     listar_pilha(pDefinitivo,pTroca,topoDefinitivo,topoTroca,tamanhoVetor);
 
     //Libera o espaço de memória reservado para os ponteiros
@@ -111,7 +141,6 @@ int obter_tamanho_vetor(void){
     
     return tamanhoVetor;
 }
-
 void menu_interacao_usuario(int *pDados, int tam_vet){
     /* Recebe um endereço de memória e solicita ao usário como será o método
      * de preenchimento de cada elemento: Manual, aleatório com seed definida
@@ -152,7 +181,7 @@ void menu_interacao_usuario(int *pDados, int tam_vet){
                         srand(time(NULL));
                         preenche_vetor_aleatorio(pDados,tam_vet);
                         printf("\n\n***** Preenchimento automático *****\n\n");
-                        mostra_vetor(pDados,tam_vet);
+//                         mostra_vetor(pDados,tam_vet);
                         break;
                     default:
                         opcUsuario = -1;
@@ -163,7 +192,6 @@ void menu_interacao_usuario(int *pDados, int tam_vet){
     }       
     
 }
-
 void preenche_vetor_aleatorio(int *p, int T){
 	int i = 0;
 
@@ -185,6 +213,11 @@ void mostra_vetor(int *p, int T){
     
     for(i = 0; i < T; i++)
         printf("%d. ", *(p + i));
+    printf("\n");
+}
+void mostra_log(int *p, int T){
+    system("clear");
+    mostra_vetor(p, T);
 }
 
 
