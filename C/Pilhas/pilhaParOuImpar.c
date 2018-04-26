@@ -16,6 +16,7 @@ struct pilha{
 
 typedef struct pilha Pilha;
 
+Pilha inicializa_membros_pilha(Pilha);
 int menu_opcoes(void);
 int obter_tamanho_pilha(void);
 int menu_define_pilha_uso(int, int);
@@ -32,6 +33,10 @@ int main(void){
     Pilha pilhaImpar;
     Pilha pilhaPar;
     Pilha *pAux;
+    
+    //Inicialização das variáveis da struct
+    pilhaImpar = inicializa_membros_pilha(pilhaImpar);
+    pilhaPar = inicializa_membros_pilha(pilhaImpar);
     
     system("clear");
     
@@ -55,9 +60,6 @@ int main(void){
         else
             pAux = &pilhaPar;
             
-        
-//         system("clear");
-        
         switch(opcMenu){
             case 0: //Sair.
                 break;
@@ -112,9 +114,9 @@ int main(void){
             case 6: //realoca o tamanho da pilha
                 tamanhoPilha = obter_tamanho_pilha();
                 pilhaImpar.ponteiro = realloc(pilhaImpar.ponteiro, tamanhoPilha * sizeof(int));
-                pilhaImpar.topo = tamanhoPilha - 1;
+                pilhaImpar = inicializa_membros_pilha(pilhaImpar);
                 pilhaPar.ponteiro = realloc(pilhaPar.ponteiro, tamanhoPilha * sizeof(int));
-                pilhaPar.topo = tamanhoPilha - 1;
+                pilhaPar = inicializa_membros_pilha(pilhaPar);
                 break;
             default:
                 printf("Opcao invalida! Vamos tentar de novo?\n");
@@ -137,6 +139,16 @@ int main(void){
     pAux = NULL;
     
     return 0;
+}
+
+Pilha inicializa_membros_pilha(Pilha pilha){
+   Pilha t;
+   
+   t.ponteiro = pilha.ponteiro;
+   t.topo = -1;
+   t.inicializada = 0;
+   
+   return t;
 }
 int obter_tamanho_pilha(void){
     
