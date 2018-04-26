@@ -10,6 +10,109 @@ Este arquivo serve para dar um breve resumo sobre o conteúdo desta pasta mas es
 
 ## Notas de Aula
 
+### Struct
+
+#### Definição de uma `struct`
+
+Uma `struct` nada mais é do que uma estrutura que pode conter diferentes tipos de dados. A definição mais amplamente difundida é que uma `struct` é uma coleção de diferentes tipos de dados. Esta estrutura é muito utilizado para dar atributos a um objeto específico. Por exemplo, no cadastro hipotético de um aluno temos seu registro, nome e média de notas, ou seja, três tipos de dados diferentes, um `int`, um vetor de `char` e um `float`. 
+
+Não seria possível montar esta estrutura de um vetor pois um vetor só pode ser preenchido com tipos de dados iguais. Já uma `struct` resolve este problema. Veja:
+
+    struct Aluno{
+        int registro;
+        char nome[10];
+        float media;
+    };
+    
+Como citado, uma `struct` é um tipo de dado, logo, podemos declarar variáveis como este tipo de dado:
+
+Declaração na definição da estrutura:
+
+    struct Aluno{
+        int registro;
+        char nome[10];
+        float media;
+    } aluno1, aluno2, aluno3;
+    
+Declaração utilizando a etiqueta da estrutura:
+
+    struct Aluno{
+        int registro;
+        char nome[10];
+        float media;
+    };
+    
+    struct Aluno aluno1;
+    struct Aluno aluno2;
+    struct Aluno aluno3;
+    
+Declaração utilizando um nome definido pela função [`typedef`](http://mtm.ufsc.br/~azeredo/cursoC/aulas/cb60.html)
+
+    struct Aluno{
+        int registro;
+        char nome[10];
+        float media;
+    };
+    
+    typedef struct Aluno aluno;
+    
+    aluno aluno_A;
+    aluno aluno_B;
+    aluno aluno_C;
+    
+O "manuseio" das variáveis de tipo `aluno` são simples: para acessar um membro da estrutura utilizamos o operador ".":
+
+    (...)
+    aluno_A.registro = 123456;
+    strcpy(aluno_A.nome, "Fulano");
+    aluno_A.media = (n1 + n2)/2;
+    
+#### Struct como ponteiro
+
+Uma `struct`, como qualquer outro tipo de dado, pode ser declarado como ponteiro. Seguindo o exemplo acima, podemos fazer:
+
+    struct Aluno{
+        int registro;
+        char nome[10];
+        float media;
+    };
+    
+    typedef struct Aluno aluno;
+    
+    aluno a; //Cria o endereço de memória para a estrutura
+    aluno *p; //Cria um ponteiro que apontará para um endereço de memória "aluno"
+    
+    p = &a // Atribui ao ponteiro p o endereço de memória da estrutura a.
+    
+    //Instruções que possuem mesmo significado
+    p->registro = 12345;
+    a.registro = 12345; 
+    
+    (*p).registro = 54321; 
+    a.registro = 54321; 
+
+Os conceitos de alocação de memória dinâmica também podem ser aplicadas em uma `struct`.
+    
+    
+#### Struct como funções
+
+Também podemos definir o retorno de uma função como `struct`.
+
+    //protótipo
+    aluno inicializa_dados(aluno);
+
+    (...)
+    
+    aluno inicializa_dados(aluno j){
+        j.registro = 9999;
+        strcpy(j.nome, "xxxxx");
+        j.media = 0.0;
+    
+    return aluno;
+    }
+    
+O retorno desta função será **os valores** atribuidos internamente.
+
 ### Alocação Dinâmica em C
 
 #### A função `malloc`
@@ -105,5 +208,7 @@ Quando isso ocorre, a função retorna o valor `NULL` para o ponteiro. Sugere-se
 ## Referências
 
  -- Alocação Dinâmica - [Site da USP](https://www.ime.usp.br/~pf/algoritmos/aulas/aloca.html)  
- -- Uso da função `free` = [CProgressivo](https://www.cprogressivo.net/2013/10/Funcao-free-Como-liberar-memoria-e-evitar-vazamento.html)  
- -- Função `realloc` = [CProgressivo](https://www.cprogressivo.net/2013/10/A-funcao-realloc-realocando-memoria-dinamicamente-e-a-calloc.html)
+ -- Uso da função `free` - [CProgressivo](https://www.cprogressivo.net/2013/10/Funcao-free-Como-liberar-memoria-e-evitar-vazamento.html)  
+ -- Função `realloc` - [CProgressivo](https://www.cprogressivo.net/2013/10/A-funcao-realloc-realocando-memoria-dinamicamente-e-a-calloc.html)  
+ -- Exemplos e definições de `struct`s e ponteiros - [Site da USP](https://www.ime.usp.br/~mms/mac1222s2013/9%20-%20structs%20e%20ponteiros.pdf)  
+ 
